@@ -19,7 +19,7 @@ Required modules: matplotlib, numba, numpy, pandas, and scipy
 
 3. Run **pfcalc.py**.
 
-4. Run the other programs (**pfvisual.py**, *pfhist.py*, **genplot.py**, **pfsnap.py**) according to your preference.
+4. Run the other programs (**pfvisual.py**, **pfhist.py**, **genplot.py**, **pfsnap.py**) according to your preference.
 
 For more details, please refer to **README.txt**.
 
