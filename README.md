@@ -27,6 +27,8 @@ For more details, please refer to **README.txt**.
 
 Ryo Fukushima (Tohoku University, Sendai, Japan)
 
+rpifukushima@gmail.com
+
 ## References
 
 Allen, S. M., & Cahn, J. W. (1979). A microscopic theory for antiphase boundary motion and its application to antiphase domain coarsening. Acta Metallurgica, 27, 1085–1095.
