@@ -1,9 +1,10 @@
 # OmpApd.py
-# version: 1.0.0 (May 29, 2023)
+# version: 1.0.1 (Apr 22, 2024)
 # author: Ryo Fukushima (Tohoku University) rpifukushima@gmail.com 
 #
 import numpy as np
 import pandas as pd
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from scipy import integrate
 from scipy import interpolate
@@ -417,6 +418,53 @@ def HistPlot2d(PF, select): # generate a histogram of order parameters
     plt.show()
     
     return
+    
+
+@njit(cache = True)
+def PFAbsRavel2d_jit(PF): # loop for HistAnime2d
+	
+	AbsPF_allTime = np.zeros(((PF.shape[0] * PF.shape[1]), PF.shape[2]))
+
+	AbsPF = np.absolute(PF)
+	
+	for i in range(PF.shape[2]):
+	
+		AbsPF_allTime[:,i] = np.ravel(AbsPF[:,:,i])
+	
+	return AbsPF_allTime
+	
+    
+def HistAnime2d(PF, BinsInput, speed, filename, **args): # make a gif image of histograms for calculated phase-fields
+
+	plotNo = args["plotNo"]
+	
+	AbsPF_allTime = PFAbsRavel2d_jit(PF)
+	
+	fig = plt.figure()
+	plt.ylim(0,AbsPF_allTime.shape[0])
+	plt.tick_params(labelbottom=False, labelleft=False, labelright=False, labeltop=False, left = False, bottom = False)
+	ax = fig.add_subplot(111)
+	
+	def PlotHistFrames(i):
+	
+		ax.cla()
+		ax.title.set_text("Time step = %d" %i)
+		ax.set_xlim(0,1)
+		ax.set_ylim(0,AbsPF_allTime.shape[0])
+		ax.set_xlabel("Order parameter")
+		ax.set_ylabel("Fraction, %")
+		ax.xaxis.set_major_locator(mpl.ticker.LinearLocator(11))
+		ax.yaxis.set_major_formatter(mpl.ticker.PercentFormatter(AbsPF_allTime.shape[0],0,""))
+		ax.yaxis.set_major_locator(mpl.ticker.LinearLocator(11))
+		ax.hist(AbsPF_allTime[:,i], bins = BinsInput, range = (0,1), density = False, color = "dimgray")
+		
+	anim = animation.FuncAnimation(fig, PlotHistFrames, frames = plotNo, interval = speed)
+	
+	anim.save("%s.gif" %filename, writer = "pillow")
+	plt.close()
+
+	return	
+	
 
 @njit(cache = True)
 def MakeDfMatrix2d_jit(PF2d, saturation, x1, yfactor, A): # loop for MakeDfMatrix2d

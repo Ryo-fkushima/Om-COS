@@ -1,10 +1,11 @@
 # initials.py
-# version: 1.0.0 (May 29, 2023)
+# version: 1.0.1 (Apr 22, 2024)
 # author: Ryo Fukushima (Tohoku University) rpifukushima@gmail.com 
 #
 import OmpApd as apd
 import numpy as np
 
+# Note: apd.phi_m(x) is the positive equilibrium value of the order parameter at a temperature of x [K].
 
 def noise():
     

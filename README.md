@@ -7,7 +7,7 @@ This should be a useful tool to properly interpret both the cation ordering proc
 
 ## Requirement
 
-The scripts were tested on: Python 3.8.2 (pip3), macOS Big Sur (11.6.4), MacBook Air (2020, 1.1 GHz Quad-Core Intel Core i5, 16 GB RAM). 
+The scripts were tested on: Python 3.8.2/3.11.6 (pip3), macOS Big Sur (11.6.4), MacBook Air (2020, 1.1 GHz Quad-Core Intel Core i5, 16 GB RAM). 
 
 Required modules: matplotlib, numba, numpy, pandas, and scipy
 
@@ -19,7 +19,7 @@ Required modules: matplotlib, numba, numpy, pandas, and scipy
 
 3. Run **pfcalc.py**.
 
-4. Run the other programs (**pfvisual.py**, **genplot.py**, **pfsnap.py**) according to your preference.
+4. Run the other programs (**pfvisual.py**, *pfhist.py*, **genplot.py**, **pfsnap.py**) according to your preference.
 
 For more details, please refer to **README.txt**.
 
@@ -38,3 +38,9 @@ Cahn, J. W., & Hilliard, J. E. (1958). Free energy of a nonuniform system. I. In
 Carpenter, M. A., Domeneghetti, M. -C., & Tazzoli, V. (1990). Application of Landau theory to cation ordering in omphacite I: Equilibrium behaviour. European Journal of Mineralogy, 2, 7–18.
 
 Holland, T. J. B., & Powell, R. (2011). An improved and extended internally consistent thermodynamic dataset for phases of petrological interest, involving a new equation of state for solids. Journal of Metamorphic Geology, 29, 333–383.
+
+## Updates
+
+Apr 22, 2024: pfhist.py (script for making histograms) was added.
+
+

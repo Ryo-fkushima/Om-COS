@@ -1,5 +1,5 @@
 # pfcalc.py
-# version: 1.0.0 (May 29, 2023)
+# version: 1.0.1 (Apr 22, 2024)
 # author: Ryo Fukushima (Tohoku University) rpifukushima@gmail.com
 #
 import OmpApd as apd
@@ -16,8 +16,10 @@ if len(sys.argv) != 2 and len(sys.argv) != 3:
 	print("Error: Add 1 (or 2) values.\n ex.\n pfcalc.py 2d\n pfcalc.py 3d\n pfcalc.py 3d_cs\n pfcalc.py 2d omit\n pfcalc.py 2d omit_wl")
 	sys.exit()
 
-
+print("============================================================")
+print("\n", "Om-COS v1.0.1  pfcalc.py")
 print("\n", "Phase-field calculation (", datetime.datetime.now(), ")\n")
+print("============================================================")
 
 importlib.reload(params)
 

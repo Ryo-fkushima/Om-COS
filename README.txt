@@ -1,25 +1,25 @@
 Om-COS: Cation ordering simulator for omphacite
-version: 1.0.0 (May 29, 2023)
+version: 1.0.1 (Apr 22, 2024)
 author: Ryo Fukushima (Tohoku University) rpifukushima@gmail.com
 
 ===== List of the scripts =====
 
-> You can basically edit:
+[What you can basically edit]
 
 params.py: parameters for calculations
 initials.py: used to set an initial phase-field
 
-> Other scripts (just to run from your console):
+[Other scripts (just to run from your console)]
 
 pfcalc.py: script for phase-field calculations
 pfvisual.py: script for phase-field visualization
-genplot.py: script for plotting of characteristic values of the calculated phase-field
-pfsnap.py: script for saving snapshots of the calculated phase-field
+pfhist.py: script for histogram generation (power spectrum of the order parameter)
+genplot.py: script for plotting characteristic values of the calculated phase-field
+pfsnap.py: script for taking a snapshot of the calculated phase-field
 
-> Function list:
+[Function list]
 
 OmpApd.py
-
 
 ===== How to use =====
 
@@ -29,12 +29,12 @@ Note: This program requires several modules: matplotlib, numba, numpy, pandas, a
 1. Make a new directory for the calculation, and copy & paste all the scripts there.
 2. Edit the contents of params.py and initials.py (optional) to set up calculation parameters.
 3. Run pfcalc.py with some command-line keys (see below).
-4. Run the other programs (pfvisual.py, genplot.py, pfsnap.py) according to your preference.
+4. Run the other programs (pfvisual.py, pfhist.py, genplot.py, pfsnap.py) according to your preference.
 
 
 ===== Descriptions of the calculation scripts =====
 
-> pfcalc.py
+[pfcalc.py]
 
 This calculates the phase field and makes outputs as a summary.
 "2d" option enables to calculate in a 2d space (fastest).
@@ -52,7 +52,7 @@ python3 pfcalc.py 3d_cs
 python3 pfcalc.py 2d omit
 python3 pfcalc.py 2d omit_wl
 
-> pfvisual.py
+[pfvisual.py]
 
 This generates a gif movie of the phase-field time evolution.
 First command-line key designates the plot type.
@@ -69,8 +69,23 @@ python3 pfvisual.py 0 100 animation
 python3 pfvisual.py 1 100 animation
 python3 pfvisual.py 2 100 animation
 
+[pfhist.py]
 
-> genplot.py
+This generates a gif movie of the time-evolution of histograms of order-parameter values.
+First command-line key designates the number of the bins.
+Second command-line key designates the animation speed.
+Third command-line key will be the name of the exported gif file.
+You can get raw data for the histogram as .txt file by setting the fourth command-line key as "Y".
+You can get histograms even if you did not calculate the summary. 
+(i.e. "omit" options in pfcalc.py)
+
+ex.
+python3 pfhist.py 10 100 histogram Y
+python3 pfhist.py 40 100 histogram N
+
+
+
+[genplot.py]
 
 This generates several plots of characteristic values of the phase-field based on the calculated summary.
 The command-line keys designates parameters for the plot.
@@ -93,7 +108,7 @@ python3 genplot.py wavelength
 python3 genplot.py apdsize fraction
 
 
-> pfsnap.py
+[pfsnap.py]
 
 This is useful to save the calculated phase-field at a specific time step.
 The command-line keys designates the dimension type and which time step you want to save the phase-field with.
@@ -108,39 +123,44 @@ python3 pfsnap.py 2dtxt 100
 python3 pfsnap.py 3d 1000
 
 
-===== Tips for parameter settings =====
+===== General comments =====
 
-> General comments
-
-"mob", "premob", and "actEmob" values are important only when you consider how long each time step is. 
+> For the present, all the summary calculations, phase-field visualization, and histogram generations will be done
+for selected 2d phase-fields, even if you choose the "3d" option in pfcalc.py.
+> "mob", "premob", and "actEmob" values are important only when you consider how long each time step is. 
 These values do not affect APD patterns.
-The "repeat" value may be larger than 1 when you want to check effects of the initial randomness with genplot.py. 
+> The "repeat" value may be larger than 1 when you want to check effects of the initial randomness with genplot.py. 
 (note that only the final phase-field data will be saved.)
-The file size of PhaseField.npy and PhaseField3d.npy may be so large (> a few GB).
-initials.py would be read only when you set "ini" as -1.
-"ApdMeasureWidth", "MaxOffset", and "slicefor3d/slicefor3d_cs" values should be smaller than the "nx", "ny", and "nz" values, respectively.
-When you calculate "wavelength" with a too small area for the APD size, it sometimes fails. Then choose the "omit_wl" option instead.
+> The file size of PhaseField.npy and PhaseField3d.npy may be so large (> a few GB).
+> initials.py would be read only when you set "ini" as -1.
+> "ApdMeasureWidth", "MaxOffset", and "slicefor3d/slicefor3d_cs" values should be smaller than the "nx", "ny", and "nz" values, respectively.
+> When you calculate "wavelength" with a too small area for the APD size, it sometimes fails. Then choose the "omit_wl" option instead.
 
-> When you calculate 2d phase-field with initial fluctuation of Gaussian or uniform distributions:
 
-Make sure that "nx", "ny", "dx", "dy", "periodi", and "periodj" values are correct, and that "ini" value is 0/1 according to your preferrence.
+===== Examples for parameter settings =====
+
+[When you calculate 2d phase-field with initial fluctuation of Gaussian or uniform distributions]
+
+> Make sure that "nx", "ny", "dx", "dy", "periodi", and "periodj" values are correct, and that "ini" value is 0/1 according to your preferrence.
 "nz", "dz", "periodk", and "slicefor3d/slicefor3d_cs" values are irrelevant to such 2d calculations.
 
-> When you calculate 2d phase-field with specific initial fluctuation patterns:
 
-Make sure that "nx", "ny", "dx", "dy", "periodi", and "periodj" values are correct, and that "ini" and "inifield" values are -1 and "initials.initial_PF_2d".
+[When you calculate 2d phase-field with specific initial fluctuation patterns]
+
+> Make sure that "nx", "ny", "dx", "dy", "periodi", and "periodj" values are correct, and that "ini" and "inifield" values are -1 and "initials.initial_PF_2d".
 "nz", "dz", "periodk", and "slicefor3d/slicefor3d_cs" values are irrelevant to such 2d calculations.
 In initials.py, you should confirm that the matrix size of "initial_PF_2d" (and temperature when you use apd.phi_m(temp), which is the positive phi value with the minimum Gibbs energy) is consistent with the input parameters written in params.py.
 
-> When you calculate 3d phase-field with initial fluctuation of Gaussian or uniform distributions:
 
-Make sure that "nx", "ny", "nz", "dx", "dy", "dz", "periodi", "periodj", and "periodk" values are correct, and that "ini" value is 0/1 according to your preferrence.
+[When you calculate 3d phase-field with initial fluctuation of Gaussian or uniform distributions]
 
-> When you calculate 3d phase-field with specific initial fluctuation patterns:
+> Make sure that "nx", "ny", "nz", "dx", "dy", "dz", "periodi", "periodj", and "periodk" values are correct, and that "ini" value is 0/1 according to your preferrence.
 
-Make sure that "nx", "ny", "nz", "dx", "dy", "dz", "periodi", "periodj", and "periodk" values are correct, and that "ini" and "inifield" values are -1 and "initials.initial_PF_3d", respectively.
+
+[When you calculate 3d phase-field with specific initial fluctuation patterns:]
+
+> Make sure that "nx", "ny", "nz", "dx", "dy", "dz", "periodi", "periodj", and "periodk" values are correct, and that "ini" and "inifield" values are -1 and "initials.initial_PF_3d", respectively.
 In initials.py, you should confirm that the matrix size of "initial_PF_3d" (and temperature when you use apd.phi_m(temp)) is consistent with the input parameters written in params.py.
-
 
 
 

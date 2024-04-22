@@ -1,5 +1,5 @@
 # pfvisual.py
-# version: 1.0.0 (May 29, 2023)
+# version: 1.0.1 (Apr 22, 2024)
 # author: Ryo Fukushima (Tohoku University) rpifukushima@gmail.com
 #
 import OmpApd as apd
@@ -34,7 +34,10 @@ else:
 	print("Error: Phase field not found")
 	sys.exit()
 
+print("============================================================")
+print("\n", "Om-COS v1.0.1  pfvisual.py")
 print("\n", "Phase-field visualization (", datetime.datetime.now(), ")\n")
+print("============================================================")
 
 
 def Saturation2Order(**args):

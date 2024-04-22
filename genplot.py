@@ -1,5 +1,5 @@
 # genplot.py
-# version: 1.0.0 (May 29, 2023)
+# version: 1.0.1 (Apr 22, 2024)
 # author: Ryo Fukushima (Tohoku University) rpifukushima@gmail.com 
 #
 import OmpApd as apd
@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import sys
 import os
 import pandas as pd
+import datetime
 
 if len(sys.argv) > 3:
 	print("Error: Add 0-2 values. ex) genplot.py apdsize fraction")
@@ -17,6 +18,12 @@ if os.path.exists("summary") == False:
 
 	print("Error: Summary not found")
 	sys.exit()
+
+print("============================================================")
+print("\n", "Om-COS v1.0.1  genplot.py")
+print("\n", "Summary plot (", datetime.datetime.now(), ")\n")
+print("============================================================")
+
 	
 	
 Summary_list = []

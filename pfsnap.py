@@ -1,5 +1,5 @@
 # pfsnap.py
-# version: 1.0.0 (May 29, 2023)
+# version: 1.0.1 (Apr 22, 2024)
 # author: Ryo Fukushima (Tohoku University) rpifukushima@gmail.com
 #
 import numpy as np
@@ -16,6 +16,11 @@ if (os.path.isfile("PhaseField.npy") == False) and (os.path.isfile("PhaseField3d
 
 	print("Error: Phase field not found")
 	sys.exit()
+
+print("============================================================")
+print("\n", "Om-COS v1.0.1  pfsnap.py")
+print("\n", "Taking a phase-field snapshot (", datetime.datetime.now(), ")\n")
+print("============================================================")
 
 
 if os.path.isfile("PhaseField.npy") == True:

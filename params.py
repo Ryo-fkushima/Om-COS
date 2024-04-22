@@ -1,5 +1,5 @@
 # params.py
-# version: 1.0.0 (May 29, 2023)
+# version: 1.0.1 (Apr 22, 2024)
 # author: Ryo Fukushima (Tohoku University) rpifukushima@gmail.com
 #
 import OmpApd as apd
@@ -9,7 +9,7 @@ import importlib
 
 importlib.reload(initials)
 
-CalcParams = {
+CalcParams = { # Required for the phase-field calculation
     
             "omp_v": (6.040 + 6.619)/2*10**(-5), # molar volume of omp in m^3. Holland & Powell (2011) average of jd and di
             
@@ -35,7 +35,7 @@ CalcParams = {
             
             "dt": 0.01, # step size in normalized time (t* = mobility * rrr * temp * time(yr)). fixed to 0.01
             
-            "nsteps": 2000, # numbers of time steps
+            "nsteps": 2000, # total numbers of time steps
             "repeat": 1, # numbers of loop. 1 or larger value
         
         	"slicefor3d_cs": 5, # for 3d_cs calculation. Enter the z coordinate.
@@ -58,7 +58,7 @@ VisualParams = {
             
             "slicefor3d": 5, # for 3d to 2d convert. Enter the z coordinate.
     		"binthres": 0.4, # order parameter threshold for binarization. tentatively fixed to 0.4
-            "plotNo": np.arange(0,2001,100), #　list of time steps for making plots
+            "plotNo": np.arange(0,2001,100), #　list of time steps for making plots/histograms
     		
     		# required only for DF-image like visualization
     		
@@ -68,14 +68,13 @@ VisualParams = {
     		# "phiadjust" and "Icoef" values should be directly fixed below, and "y1" will be calculated as "y1" = "Ifactor" * B(phi = 1).
     		# "saturation" designates the saturation level as a ratio against the B(phi = 1) value.
     		
-            "saturation": 0.4, # 0-1 value
+    		"saturation": 0.4, # 0-1 value
             
             "phiadjust": 0.1, # tentatively fixed to 0.1. (Do not enter "0" here.)
             "Ifactor": 0.03, # 0-1 value. tentatively fixed to 0.03.
             "Icoef": 5, # tentatively fixed to 5.
             
-             
-            
+               
             }
 
 ParamsSummary = {"Calc": CalcParams, "Visual": VisualParams}
